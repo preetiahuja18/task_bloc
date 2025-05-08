@@ -1,19 +1,15 @@
+enum TaskPriority { Low, Medium, High }
+
 class Task {
-  final String id;
   final String title;
-  late final bool isCompleted;
+  final bool completed;
+  final DateTime dueDate;
+  final TaskPriority priority;
 
   Task({
-    required this.id,
     required this.title,
-    this.isCompleted = false,
+    required this.completed,
+    required this.dueDate,
+    required this.priority,
   });
-
-  Task copyWith({String? id, String? title, bool? isCompleted}) {
-    return Task(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      isCompleted: isCompleted ?? this.isCompleted,
-    );
-  }
 }

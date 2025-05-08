@@ -1,10 +1,13 @@
-import 'package:task_bloc/domain/entities/task.dart' show Task;
-import 'package:task_bloc/domain/repositories/task_repository.dart';
 
-class GetTasks {
-  final TaskRepository repository;
+// import '../../data/task.repository.dart';
+// import '../entities/task.dart';
 
-  GetTasks(this.repository);
+// class GetTasksUseCase {
+//  // final TaskRepository repository;
 
-  Future<List<Task>> call() => repository.getTasks();
-}
+//   GetTasksUseCase(this.repository);
+
+//   Future<List<Task>> execute() {
+//     return repository.getTasks();
+//   }
+// }

@@ -1,45 +1,29 @@
+// import 'package:flutter/material.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:task_bloc/presentation/task_Screen.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:task_bloc/domain/repositories/task_repo_impl.dart';
-import 'package:task_bloc/domain/usecasees/add_task.dart' show AddTask;
-import 'package:task_bloc/domain/usecasees/get_task.dart' show GetTasks;
-import 'package:task_bloc/domain/usecasees/remove_task.dart';
-import 'package:task_bloc/domain/usecasees/task_status.dart';
-import 'package:task_bloc/presentation/bloc/task_bloc.dart';
-import 'package:task_bloc/presentation/bloc/task_event.dart';
-import 'package:task_bloc/presentation/screens/home_screen.dart';
+// import 'bloc/task_bloc.dart';
+// import 'bloc/task_event.dart';
+// import 'domain/repositories/task_repo_impl.dart';
+// import 'domain/usecasees/add_task.dart';
+// import 'domain/usecasees/get_task.dart';
+// import 'domain/usecasees/remove_task.dart';
+// import 'domain/usecasees/task_status.dart';
+// void main() {
+//   final repository = TaskRepositoryImpl();
 
-import 'data/datasources/task_local_datasource.dart';
-
-void main() {
- void main() {
-  final dataSource = TaskLocalDataSourceImpl(); // Use concrete class here
-  final repository = TaskRepositoryImpl(dataSource);
-
-  runApp(MyApp(repository: repository));
-}
-
-}
-
-class MyApp extends StatelessWidget {
-  final TaskRepositoryImpl repository;
-
-  const MyApp({super.key, required this.repository});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Task Manager',
-      home: BlocProvider(
-        create: (context) => TaskBloc(
-          getTasks: GetTasks(repository),
-          addTask: AddTask(repository),
-          removeTask: RemoveTask(repository),
-          toggleTaskStatus: ToggleTaskStatus(repository),
-        )..add(LoadTasks()),
-        child: const HomeScreen(),
-      ),
-    );
-  }
-}
+//   runApp(
+//     MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: BlocProvider(
+//         create: (_) => TaskBloc(
+//           addTaskUseCase: AddTaskUseCase(repository),
+//           toggleTaskUseCase: ToggleTaskUseCase(repository),
+//           deleteTaskUseCase: DeleteTaskUseCase(repository),
+//           getTasksUseCase: GetTasksUseCase(repository),
+//         )..add(LoadTasksEvent()),
+//         child: HomeScreen(),
+//       ),
+//     ),
+//   );
+// }

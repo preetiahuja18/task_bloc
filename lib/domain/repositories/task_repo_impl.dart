@@ -1,36 +1,51 @@
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:task_bloc/data/models/task_model.dart';
-import 'package:task_bloc/data/datasources/task_local_datasource.dart';
-import 'package:task_bloc/domain/entities/task.dart';
-import 'package:task_bloc/domain/repositories/task_repository.dart';
+// import 'dart:convert';
+// import 'package:shared_preferences/shared_preferences.dart';
 
-class TaskRepositoryImpl extends TaskRepository {
-  final TaskLocalDataSource localDataSource;
+// import '../../data/task.repository.dart';
+// import '../../domain/entities/task.dart';
+// import '../../model/task_model.dart';
 
-  TaskRepositoryImpl(this.localDataSource);
 
-  @override
-  Future<List<Task>> getTasks() async {
-    final models = await localDataSource.loadTasks();
-    return models.map((model) => model.toEntity()).toList();
-  }
+// class TaskRepositoryImpl implements TaskRepository {
+//   static const _key = 'TASKS';
 
-  @override
-  Future<void> addTask(Task task) async {
-    final taskModel = TaskModel.fromEntity(task);
-    await localDataSource.saveTasks([taskModel]); // Save the task
-  }
+//   Future<List<TaskModel>> _loadFromPrefs() async {
+//     final prefs = await SharedPreferences.getInstance();
+//     final jsonString = prefs.getString(_key);
+//     if (jsonString == null) return [];
+//     final List decoded = json.decode(jsonString);
+//     return decoded.map((e) => TaskModel.fromJson(e)).toList();
+//   }
 
-  @override
-  Future<void> removeTask(Task task) async {
-    await localDataSource.removeTask(task.id); // Remove task by ID
-  }
+//   Future<void> _saveToPrefs(List<TaskModel> tasks) async {
+//     final prefs = await SharedPreferences.getInstance();
+//     prefs.setString(_key, json.encode(tasks.map((e) => e.toJson()).toList()));
+//   }
 
-  @override
-  Future<void> toggleTaskStatus(Task task) async {
-    task.isCompleted = !task.isCompleted; // Toggle task status
-    final updatedTaskModel = TaskModel.fromEntity(task);
-    await localDataSource.saveTasks([updatedTaskModel]); // Save the updated task
-  }
-}
+//   @override
+//   Future<void> addTask(String title) async {
+//     final tasks = await _loadFromPrefs();
+//     tasks.add(TaskModel(title: title, completed: false));
+//     await _saveToPrefs(tasks);
+//   }
+
+//   @override
+//   Future<void> deleteTask(int index) async {
+//     final tasks = await _loadFromPrefs();
+//     tasks.removeAt(index);
+//     await _saveToPrefs(tasks);
+//   }
+
+//   @override
+//   Future<void> toggleTask(int index) async {
+//     final tasks = await _loadFromPrefs();
+//     final task = tasks[index];
+//     tasks[index] = TaskModel(title: task.title,completed: !task.completed);
+//     await _saveToPrefs(tasks);
+//   }
+
+//   @override
+//   Future<List<Task>> getTasks() async {
+//     return _loadFromPrefs();
+//   }
+// }

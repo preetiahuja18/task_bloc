@@ -1,10 +1,12 @@
-import '../entities/task.dart';
-import '../repositories/task_repository.dart';
 
-class ToggleTaskStatus {
-  final TaskRepository repository;
+// import '../../data/task.repository.dart';
 
-  ToggleTaskStatus(this.repository);
+// class ToggleTaskUseCase {
+//   final TaskRepository repository;
 
-  Future<void> call(Task task) => repository.toggleTaskStatus(task);
-}
+//   ToggleTaskUseCase(this.repository);
+
+//   Future<void> execute(int index) {
+//     return repository.toggleTask(index);
+//   }
+// }
