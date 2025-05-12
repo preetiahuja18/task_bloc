@@ -104,11 +104,7 @@ void _onUpdateTask() {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
-      builder: (_) => Padding(
-        padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: _buildAddSheet(isEditing: isEditing),
-      ),
+      builder: (_) => _buildAddSheet(isEditing: isEditing),
     );
   }
   
@@ -147,88 +143,78 @@ return ListView.builder(
     // Ensure the priority value is correct (e.g., low, medium, high)
     String priorityText = todo.priority ?? "Medium"; // Default to Medium if it's null
 
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 300),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      margin: EdgeInsets.symmetric(vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.green.withOpacity(0.3),
-            blurRadius: 20,
-            offset: Offset(0, 10),
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AnimatedSwitcher(
-            duration: Duration(milliseconds: 300),
-            child: Checkbox(
-              key: ValueKey<bool>(todo.isCompleted),
-              value: todo.isCompleted,
-              onChanged: (_) {
-                context.read<TodoBloc>().add(ToggleTodoCompletionEvent(index));
-              },
-              shape: CircleBorder(),
-              activeColor: Colors.green,
-              side: BorderSide(color: Colors.green),
+    return Padding(
+      padding: const EdgeInsets.only(left:10.0,right:10.0,top:8.0,bottom: 8.0),
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        margin: EdgeInsets.symmetric(vertical: 2),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.green.withOpacity(0.3),
+              blurRadius: 20,
+              offset: Offset(0, 10),
             ),
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    // Display the emoji next to the task title
-                    Text(
-                      selectedEmoji,
-                      style: TextStyle(fontSize: 24),
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      todo.title,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        decoration: todo.isCompleted ? TextDecoration.lineThrough : null,
-                        color: todo.isCompleted ? Colors.grey : Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-               SizedBox(height: 8),
-if (todo.dueDate != null)
-  Container(
-    padding: EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: Colors.grey[100], // Light background color for better contrast
-      borderRadius: BorderRadius.circular(10),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.3),
-          blurRadius: 6,
-          offset: Offset(0, 2),
+          ],
         ),
-      ],
-    ),
-    child: Row(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AnimatedSwitcher(
+              duration: Duration(milliseconds: 300),
+              child: Checkbox(
+                key: ValueKey<bool>(todo.isCompleted),
+                value: todo.isCompleted,
+                onChanged: (_) {
+                  context.read<TodoBloc>().add(ToggleTodoCompletionEvent(index));
+                },
+                shape: CircleBorder(),
+                activeColor: Colors.green,
+                side: BorderSide(color: Colors.green),
+              ),
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      // Display the emoji next to the task title
+                      Text(
+                        selectedEmoji,
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        todo.title,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          decoration: todo.isCompleted ? TextDecoration.lineThrough : null,
+                          color: todo.isCompleted ? Colors.grey : Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                 SizedBox(height: 8),
+      if (todo.dueDate != null)
+        Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
           children: [
             Icon(Icons.calendar_today, color: Colors.green, size: 18),
-            SizedBox(width: 6),
+            
             Text(
               "Due Date: ${DateFormat('yyyy-MM-dd').format(todo.dueDate!)}",
               style: TextStyle(color: Colors.grey[700], fontSize: 14),
             ),
           ],
         ),
+        SizedBox(height: 4),
         Row(
           children: [
             Icon(Icons.access_time, color: Colors.blue, size: 18),
@@ -240,49 +226,49 @@ if (todo.dueDate != null)
           ],
         ),
       ],
-    ),
-  ),
-
-                SizedBox(height: 12),
-                // Correct priority display
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: _getPriorityColor(priorityText), // Updated to use the correct priority
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    "Priority: $priorityText", // Correctly show priority
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+        ),
+      
+                  SizedBox(height: 12),
+                  // Correct priority display
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: _getPriorityColor(priorityText), // Updated to use the correct priority
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      "Priority: $priorityText", // Correctly show priority
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.edit, color: Colors.black),
+                  onPressed: () => _openEditSheet(todo),
+                  splashRadius: 25,
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  iconSize: 24,
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete, color: Colors.red),
+                  onPressed: () {
+                    context.read<TodoBloc>().add(DeleteTodoEvent(todo));
+                  },
+                  splashRadius: 25,
+                  iconSize: 24,
                 ),
               ],
             ),
-          ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.edit, color: Colors.black),
-                onPressed: () => _openEditSheet(todo),
-                splashRadius: 25,
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                iconSize: 24,
-              ),
-              IconButton(
-                icon: Icon(Icons.delete, color: Colors.red),
-                onPressed: () {
-                  context.read<TodoBloc>().add(DeleteTodoEvent(todo));
-                },
-                splashRadius: 25,
-                iconSize: 24,
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   },
@@ -527,6 +513,7 @@ Widget _buildPriorityDisplay(String priority) {
                       },
                       backgroundColor: Colors.grey[200],
                       selectedColor: Colors.black,
+                      checkmarkColor: Colors.white,
                     );
                   }).toList(),
                 ),
