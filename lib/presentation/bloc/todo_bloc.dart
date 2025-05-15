@@ -25,8 +25,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   on<AddTodoEvent>((event, emit) async {
   try {
     await todoRepository.addTodo(event.todo);
-    todos = await todoRepository.getTodos(); // ✅ Refresh after adding
-    emit(TodoLoaded(List.from(todos))); // ✅ New state emitted
+    todos = await todoRepository.getTodos(); 
+    emit(TodoLoaded(List.from(todos))); 
   } catch (e) {
     emit(TodoError("Failed to add task"));
   }
@@ -37,7 +37,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   on<UpdateTodoEvent>((event, emit) async {
   try {
     await todoRepository.updateTodo(event.index, event.updatedTodo);
-    todos = await todoRepository.getTodos(); // Fetch updated list after updating
+    todos = await todoRepository.getTodos(); 
     emit(TodoLoaded(List.from(todos)));
   } catch (e) {
     print("Error updating todo: $e");
@@ -48,7 +48,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<DeleteTodoEvent>((event, emit) async {
       try {
         await todoRepository.deleteTodo(event.todo);
-        todos = await todoRepository.getTodos(); // Fetch updated list after deleting
+        todos = await todoRepository.getTodos(); 
         emit(TodoLoaded(List.from(todos)));
       } catch (e) {
         print("Error deleting todo: $e");
@@ -62,13 +62,13 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       isCompleted: !todos[event.index].isCompleted,
     );
 
-    // Update in repository
+    
     await todoRepository.updateTodo(event.index, updatedTodo);
 
-    // Update in local list immutably
+    
     todos[event.index] = updatedTodo;
 
-    // Emit updated state with a new list reference
+    
     emit(TodoLoaded(List.from(todos)));
   } catch (e) {
     print("Error toggling completion: $e");
