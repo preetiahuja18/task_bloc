@@ -52,7 +52,7 @@ void _onAddTask() {
       title: controller.text,
       dueDate: _selectedDate,
       dueTime: _selectedTime,
-      priority: _selectedPriority, // Correct priority passed here
+      priority: _selectedPriority, 
     );
     context.read<TodoBloc>().add(AddTodoEvent(todo));
     _clearFields();
@@ -67,7 +67,7 @@ void _onUpdateTask() {
       title: controller.text,
       dueDate: _selectedDate,
       dueTime: _selectedTime,
-      priority: _selectedPriority, // Ensure priority is updated correctly here
+      priority: _selectedPriority, 
     );
     final todos = (context.read<TodoBloc>().state as TodoLoaded).todos;
     final index = todos.indexOf(_editingTodo!);
@@ -123,7 +123,7 @@ void _onUpdateTask() {
         builder: (context, state) {
           if (state is TodoLoaded) {
             if (state.todos.isEmpty) {
-              return _buildEmptyState(); // Show empty state UI
+              return _buildEmptyState(); 
             }
 return ListView.builder(
   controller: _scrollController,
@@ -133,14 +133,10 @@ return ListView.builder(
       return Center(child: CircularProgressIndicator());
     }
     final todo = state.todos[index];
-
-    // Predefined list of emojis
     List<String> emojis = ['🎯', '💼', '🧘‍♂️', '📚', '💡']; // Emoji list
     
-    // Select an emoji for the task
     String selectedEmoji = emojis[index % emojis.length];
 
-    // Ensure the priority value is correct (e.g., low, medium, high)
     String priorityText = todo.priority ?? "Medium"; // Default to Medium if it's null
 
     return Padding(
@@ -182,7 +178,6 @@ return ListView.builder(
                 children: [
                   Row(
                     children: [
-                      // Display the emoji next to the task title
                       Text(
                         selectedEmoji,
                         style: TextStyle(fontSize: 24),
@@ -229,15 +224,14 @@ return ListView.builder(
         ),
       
                   SizedBox(height: 12),
-                  // Correct priority display
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: _getPriorityColor(priorityText), // Updated to use the correct priority
+                      color: _getPriorityColor(priorityText), 
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      "Priority: $priorityText", // Correctly show priority
+                      "Priority: $priorityText", 
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14,
@@ -375,8 +369,8 @@ Widget _buildPriorityDisplay(String priority) {
 }
 
   Widget _buildAddSheet({bool isEditing = false}) {
-  String localPriority = _selectedPriority; // Use the priority from state
-  String localEmoji = _selectedEmoji ?? '💡'; // Default emoji
+  String localPriority = _selectedPriority; 
+  String localEmoji = _selectedEmoji ?? '💡'; 
 
   return Padding(
     padding: EdgeInsets.only(
@@ -487,7 +481,7 @@ Widget _buildPriorityDisplay(String priority) {
                       onSelected: (_) {
                         setStateSB(() {
                           localPriority = priority;
-                            _selectedPriority = localPriority;  // Update the priority when selected
+                            _selectedPriority = localPriority; 
                         });
                       },
                       selectedColor: _getPriorityColor(priority),
@@ -497,7 +491,6 @@ Widget _buildPriorityDisplay(String priority) {
                 ),
                 SizedBox(height: 16),
 
-                // Emoji Selection
                 Text('Emoji', style: TextStyle(fontSize: 16)),
                 SizedBox(height: 8),
                 Wrap(
@@ -508,7 +501,7 @@ Widget _buildPriorityDisplay(String priority) {
                       selected: emoji == localEmoji,
                       onSelected: (_) {
                         setStateSB(() {
-                          localEmoji = emoji; // Update the emoji when selected
+                          localEmoji = emoji; 
                         });
                       },
                       backgroundColor: Colors.grey[200],
@@ -525,7 +518,7 @@ Widget _buildPriorityDisplay(String priority) {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          // Update the task when saving
+                        
                           if (isEditing) {
                             _onUpdateTask();
                           } else {
