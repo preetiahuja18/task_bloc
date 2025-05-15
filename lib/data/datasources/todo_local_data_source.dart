@@ -10,7 +10,7 @@ class TodoLocalDataSource {
       await prefs.setString('todos', jsonEncode(jsonList));
     } catch (e) {
       print('Error saving todos: $e');
-      rethrow; // or throw a custom exception
+      rethrow; 
     }
   }
 
