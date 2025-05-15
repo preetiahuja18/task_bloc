@@ -12,11 +12,9 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        // Provide TodoLocalDataSource first, if it needs initialization
         Provider<TodoLocalDataSource>(
           create: (_) => TodoLocalDataSource(), 
         ),
-        // Provide TodoRepoImpl with TodoLocalDataSource injected
         ProxyProvider<TodoLocalDataSource, TodoRepository>(
           update: (context, todoLocalDataSource, previous) => TodoRepoImpl(todoLocalDataSource),
         ),
@@ -36,7 +34,7 @@ class TodoApp extends StatelessWidget {
       title: 'To-Do App',
     theme: ThemeData(
   useMaterial3: true,
-  colorSchemeSeed: Colors.black, // Sets black as the base theme color
+  colorSchemeSeed: Colors.black,
   //brightness: Brightness.light,
 ),
 
