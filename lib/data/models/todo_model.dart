@@ -5,7 +5,7 @@ class TodoModel extends Todo {
     required String title,
     DateTime? dueDate,
     String? dueTime,
-    String priority = 'Medium', // Default priority
+    String priority = 'Medium', 
     bool isCompleted = false,
   }) : super(
     title: title,
@@ -20,7 +20,7 @@ class TodoModel extends Todo {
       title: json['title'],
       dueDate: DateTime.tryParse(json['dueDate'] ?? ''),
       dueTime: json['dueTime'],
-      priority: json['priority'] ?? 'Medium', // Fallback to 'Medium'
+      priority: json['priority'] ?? 'Medium', 
       isCompleted: json['isCompleted'] ?? false,
     );
   }
